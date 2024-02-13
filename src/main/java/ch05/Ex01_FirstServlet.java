@@ -11,9 +11,11 @@ import java.io.PrintWriter;
 /**
  * Servlet implementation class Ex01_FirstServlet
  */
-@WebServlet("/hello")
+// 웹 브라우저 주소창에 http://localhost:8080/jw/hello 입력했을 시 처리되는 코드
+// localhost: 집, port(방): 8080, jw :폴더, hello  
+@WebServlet({"/hello", "/ch05/hello"}) // /hello, /ch05/hello 2가지로 접속 가능 
+
 public class Ex01_FirstServlet extends HttpServlet {
-	
 	
 	/*
 	 * get, post 둘 다 싫을 시 service로 처리
