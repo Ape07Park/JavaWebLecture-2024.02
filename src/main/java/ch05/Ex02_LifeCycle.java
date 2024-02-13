@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ch05/lifecycle") // 이걸로 주소 변경 o
+@WebServlet("/ch05/lifecycle") // 이걸로 주소 변경 o  http://localhost:8080/jw/ch05/lifecycle
 public class Ex02_LifeCycle extends HttpServlet {
 	
 	//  불려지면 init
