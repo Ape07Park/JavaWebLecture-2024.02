@@ -1,6 +1,5 @@
 package ch07_dao;
 
-import jakarta.servlet.RequestDispatcher; 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.apache.tomcat.jakartaee.bcel.classfile.Code;
+
 
 @WebServlet("/ch07/city/list")
 public class Ex02_List extends HttpServlet {
@@ -18,9 +17,9 @@ public class Ex02_List extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String code = request.getParameter("code");
+		String district = request.getParameter("district");
 		
-		code = (code == null || code.equals("")) ? "KOR" : code; 
+		district = (district == null || district.equals("")) ? "Kyonggi" : district; 
 		
 		String num_ = request.getParameter("num");
 		int num = ( num_ == null || num_.equals("")) ? 10 : Integer.parseInt(num_);
@@ -29,7 +28,7 @@ public class Ex02_List extends HttpServlet {
 		int offset  = ( offset_  == null ||offset_.equals("")) ? 0 : Integer.parseInt(offset_ );
 		
 		CityDao cDao = new CityDao();
-		List<City> list = cDao.getCityList(code, num, offset);
+		List<City> list = cDao.getCityList(district, num, offset);
 		list.forEach(x -> System.out.println(x));
 
 //		RequestDispatcher rd = request.getRequestDispatcher("/ch07/list.jsp");

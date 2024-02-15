@@ -9,6 +9,8 @@ public class City {
 	
 	public City() {}
 	
+	
+	
 	public City(int id, String name, String countryCode, String district, int population) {
 		super();
 		this.id = id;
@@ -17,6 +19,18 @@ public class City {
 		this.district = district;
 		this.population = population;
 	}
+	
+	
+
+	public City(String name, String countryCode, String district, int population) {
+		super();
+		this.name = name;
+		this.countryCode = countryCode;
+		this.district = district;
+		this.population = population;
+	}
+
+
 
 	public int getId() {
 		return id;
