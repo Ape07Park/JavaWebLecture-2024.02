@@ -19,7 +19,7 @@ import ch07_dao.CityDao;
 @WebServlet({ "/ch07/kcity/list", "/ch07/kcity/insert", "/ch07/kcity/update", "/ch07/kcity/delete",
 		"/ch07/kcity/wrong" })
 
-public class Kcitycontroller extends HttpServlet { // HttpServlet 추상 클래스
+public class KcityController extends HttpServlet { // HttpServlet 추상 클래스
 	private static final long serialVersionUID = 1L;
 	private CityDao cDao = new CityDao();
 
@@ -62,6 +62,7 @@ public class Kcitycontroller extends HttpServlet { // HttpServlet 추상 클래�
 
 		case "insert":
 			if (method.equals("GET")) {
+				// GET
 				rd = request.getRequestDispatcher("/ch07/kcity/insert.jsp");
 
 				request.setAttribute("districts", districts);
@@ -69,6 +70,7 @@ public class Kcitycontroller extends HttpServlet { // HttpServlet 추상 클래�
 				rd.forward(request, response);
 
 			} else {
+				// POST
 				name = request.getParameter("name");
 				countryCode = request.getParameter("countryCode");
 				district = request.getParameter("district");
@@ -78,7 +80,8 @@ public class Kcitycontroller extends HttpServlet { // HttpServlet 추상 클래�
 
 				city = new City(name, countryCode, district, population);
 				cDao.insertCity(city);
-
+				
+				// list 화면으로 되돌아감
 				response.sendRedirect("/jw/ch07/kcity/list?district=" + district + "&num=30&offset=0");
 			}
 			break;
