@@ -1,6 +1,6 @@
 package ch07_dao.kpop;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -30,8 +30,8 @@ public class KpopDaoImpl implements KpopDao {
 			
 			/* 위의 코드를 아래와 같이 줄여서 작성 가능하다. 
 			 * Context context = new InitialContext(); 
-			 * DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/oracle");             
-			 * Connection con = dataSource.getConnection(); 
+			 * DataSource ds = (DataSource) context.lookup("java:comp/env/jdbc/world");             
+			 * Connection con = ds.getConnection(); 
 			*/
 			
 		} catch (Exception e) {

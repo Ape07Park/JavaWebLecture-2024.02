@@ -19,7 +19,7 @@ import ch07_dao.CityDao;
 @WebServlet({ "/ch07/kcity/list", "/ch07/kcity/insert", "/ch07/kcity/update", "/ch07/kcity/delete",
 		"/ch07/kcity/wrong" })
 
-public class KcityController extends HttpServlet { // HttpServlet 추상 클래스
+public class Kcitycontroller extends HttpServlet { // HttpServlet 추상 클래스
 	private static final long serialVersionUID = 1L;
 	private CityDao cDao = new CityDao();
 

@@ -17,9 +17,8 @@ import org.apache.el.parser.AstIdentifier;
 
 import ch07_dao.City;
 
-@WebServlet({ "/ch07/kpop/list", "/ch07/kpop/insertArtist","/ch07/kpop/insertSong", 
-	"/ch07/kpop/updateArtist", "/ch07/kpop/updateSong",
-		"/ch07/kpop/deleteArtist", "/ch07/kpop/deleteSong", })
+@WebServlet({ "/ch07/kpop/list", "/ch07/kpop/insertArtist", "/ch07/kpop/insertSong", "/ch07/kpop/updateArtist",
+		"/ch07/kpop/updateSong", "/ch07/kpop/deleteArtist", "/ch07/kpop/deleteSong", })
 public class KpopController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private KpopDao kDao = new KpopDaoImpl();
@@ -42,7 +41,6 @@ public class KpopController extends HttpServlet {
 			rd = request.getRequestDispatcher("/ch07/kpop/list.jsp");
 			request.setAttribute("list", list);
 			rd.forward(request, response);
-
 			break;
 
 		case "insertArtist":
@@ -53,18 +51,17 @@ public class KpopController extends HttpServlet {
 
 			} else {
 				// ** "/ch07/insertArtist.jsp의 양식에 맞춤"
-				// debut 값을 받아야 함 
+				// debut 값을 받아야 함
 				// POST
 				String name = request.getParameter("name");
 				// jsp debut랑 이름 안맞음
 				String debut = request.getParameter("debut");
-				
+
 				// sid 안불러옴
 				int sid = Integer.parseInt(request.getParameter("songId"));
-				
+
 				Artist artist = new Artist(name, LocalDate.parse(debut), sid);
-				
-				
+
 				kDao.insertArtist(artist);
 
 				response.sendRedirect("/jw/ch07/kpop/list");
@@ -73,18 +70,16 @@ public class KpopController extends HttpServlet {
 
 		case "updateArtist":
 			if (method.equals("GET")) {
-			try {
+
+				// 사용자가 입력한 데이터를 가져옴
 				int aid = Integer.parseInt(request.getParameter("aid"));
+
 				Artist artist = kDao.getArtist(aid);
-				
+
 				rd = request.getRequestDispatcher("/ch07/kpop/updateArtist.jsp");
 				request.setAttribute("artist", artist);
 				rd.forward(request, response);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}	
-		
+
 			} else {
 				// POST
 				int aid = Integer.parseInt(request.getParameter("aid"));
@@ -92,19 +87,21 @@ public class KpopController extends HttpServlet {
 				// jsp debut랑 이름 안맞음
 				String debut = request.getParameter("debut");
 				int sid = Integer.parseInt(request.getParameter("songId"));
-				
+
 				Artist artist = new Artist(aid, name, LocalDate.parse(debut), sid);
-				kDao.updateArtist(artist); 
+				kDao.updateArtist(artist);
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
+			break;
 
 		case "deleteArtist":
 			if (method.equals("GET")) {
 				// GET
-
-			} else {
-				// POST
+				int aid = Integer.parseInt(request.getParameter("aid"));
+				kDao.deleteArtist(aid);
+				response.sendRedirect("/jw/ch07/kpop/list");
 			}
+			break;
 
 		case "insertSong":
 			if (method.equals("GET")) {
@@ -116,30 +113,47 @@ public class KpopController extends HttpServlet {
 				// POST
 				String title = request.getParameter("title");
 				String lyrics = request.getParameter("lyrics");
-				
 
 				Song song = new Song(title, lyrics);
 				kDao.insertSong(song);
 
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
-			
-//		case "updateSong":
-//			if (method.equals("GET")) {
-//				// GET
-//
-//			} else {
-//				// POST
-//			}
-//		
-//		case "deleteSong":
-//			if (method.equals("GET")) {
-//				// GET
-//
-//			} else {
-//				// POST
-//			}
-//		
+			break;
+
+		case "updateSong":
+			if (method.equals("GET")) {
+
+				// 사용자가 입력한 데이터를 가져옴
+				int sid = Integer.parseInt(request.getParameter("sid"));
+
+				Song song = kDao.getSong(sid);
+
+				rd = request.getRequestDispatcher("/ch07/kpop/updateSong.jsp");
+				request.setAttribute("song", song);
+				rd.forward(request, response);
+
+			} else {
+				// POST
+				int sid = Integer.parseInt(request.getParameter("sid"));
+				String title = request.getParameter("title");
+				// jsp debut랑 이름 안맞음
+				String lyrics = request.getParameter("lyrics");
+
+				Song song = new Song(sid, title, lyrics);
+				kDao.updateSong(song);
+				response.sendRedirect("/jw/ch07/kpop/list");
+			}
+			break;
+
+		case "deleteSong":
+			if (method.equals("GET")) {
+
+				int sid = Integer.parseInt(request.getParameter("sid"));
+				kDao.deleteArtist(sid);
+				response.sendRedirect("/jw/ch07/kpop/list");
+			}
+			break;
 
 		}
 
