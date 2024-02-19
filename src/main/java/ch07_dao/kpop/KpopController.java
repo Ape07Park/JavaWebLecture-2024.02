@@ -17,8 +17,9 @@ import org.apache.el.parser.AstIdentifier;
 
 import ch07_dao.City;
 
-@WebServlet({ "/ch07/kpop/list", "/ch07/kpop/insertArtist", "/ch07/kpop/insertSong", "/ch07/kpop/updateArtist",
-		"/ch07/kpop/updateSong", "/ch07/kpop/deleteArtist", "/ch07/kpop/deleteSong", })
+@WebServlet({ "/ch07/kpop/list", "/ch07/kpop/insertArtist", "/ch07/kpop/insertSong", 
+	"/ch07/kpop/updateArtist","/ch07/kpop/updateSong", "/ch07/kpop/deleteArtist", 
+	"/ch07/kpop/deleteSong"})
 public class KpopController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private KpopDao kDao = new KpopDaoImpl();
@@ -86,13 +87,12 @@ public class KpopController extends HttpServlet {
 			}
 			break;
 		case "deleteArtist":
-			if (method.equals("GET")) {
-				// GET
+			
 				int aid = Integer.parseInt(request.getParameter("aid"));
+				
 				kDao.deleteArtist(aid);
 				response.sendRedirect("/jw/ch07/kpop/list");
-			}
-			break;
+				break;
 
 		case "insertSong":
 			if (method.equals("GET")) {
@@ -138,12 +138,10 @@ public class KpopController extends HttpServlet {
 			break;
 
 		case "deleteSong":
-			if (method.equals("GET")) {
-
 				int sid = Integer.parseInt(request.getParameter("sid"));
-				kDao.deleteArtist(sid);
+				kDao.deleteSong(sid);
 				response.sendRedirect("/jw/ch07/kpop/list");
-			}
+			
 			break;
 
 		}

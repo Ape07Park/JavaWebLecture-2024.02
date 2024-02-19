@@ -100,8 +100,15 @@ public class UserController extends HttpServlet {
 			
 		case "register":
 			if(method.equals("GET")) {
-				
+				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+				rd.forward(request, response);
 			}else {
+				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
+				request.setAttribute("uid", uid);
+				request.setAttribute("pwd", pwd);
+				request.setAttribute("pwd2", pwd2);
+				request.setAttribute("uname", uname);
+				request.setAttribute("email", email);
 				
 			}
 			break;

@@ -58,9 +58,10 @@ td {
 				<td><a href="/jw/ch07/kpop/updateSong?sid=${kpop.sid}">${kpop.title}</a></td>
 
 				<td>${kpop.lyrics}</td>
-
-				<td><a href="/jw/ch07/kpop/delete?aid=${kpop.aid}">걸그룹</a> <!-- * 이건 알아두기 id 수정 -->
-					<a href="/jw/ch07/kpop/delete?sid=${kpop.sid}">노래</a></td>
+				
+				<!-- delete를 -> deleteArtist -->
+				<td><a href="/jw/ch07/kpop/deleteArtist?aid=${kpop.aid}">걸그룹</a> <!-- * 이건 알아두기 id 수정 -->
+					<a href="/jw/ch07/kpop/deleteSong?sid=${kpop.sid}">노래</a></td>
 			</tr>
 		</c:forEach>
 

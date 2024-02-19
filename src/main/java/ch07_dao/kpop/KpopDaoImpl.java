@@ -205,42 +205,31 @@ public class KpopDaoImpl implements KpopDao {
 	public void deleteArtist(int aid) {
 		Connection conn = getConnection();
 		String sql = "delete from girl_group where gid=?";
-		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, aid);
 			
-			
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			conn.close();
+			pstmt.close(); conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+		
 
 	@Override
 	public void deleteSong(int sid) {
 		Connection conn = getConnection();
 		String sql = "delete from song where sid=?";
-		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
 			pstmt.setInt(1, sid);
 			
-			
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			conn.close();
+			pstmt.close(); conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 }
