@@ -37,7 +37,7 @@ public class KpopController extends HttpServlet {
 		case "list":
 			// ** kDao의 메서드 안 씀
 			List<Kpop> list = kDao.getKpopList();
-			System.out.println(list.size());
+			
 			rd = request.getRequestDispatcher("/ch07/kpop/list.jsp");
 			request.setAttribute("list", list);
 			rd.forward(request, response);
@@ -70,30 +70,21 @@ public class KpopController extends HttpServlet {
 
 		case "updateArtist":
 			if (method.equals("GET")) {
-
-				// 사용자가 입력한 데이터를 가져옴
 				int aid = Integer.parseInt(request.getParameter("aid"));
-
 				Artist artist = kDao.getArtist(aid);
-
 				rd = request.getRequestDispatcher("/ch07/kpop/updateArtist.jsp");
 				request.setAttribute("artist", artist);
 				rd.forward(request, response);
-
 			} else {
-				// POST
 				int aid = Integer.parseInt(request.getParameter("aid"));
 				String name = request.getParameter("name");
-				// jsp debut랑 이름 안맞음
 				String debut = request.getParameter("debut");
 				int sid = Integer.parseInt(request.getParameter("songId"));
-
 				Artist artist = new Artist(aid, name, LocalDate.parse(debut), sid);
 				kDao.updateArtist(artist);
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
 			break;
-
 		case "deleteArtist":
 			if (method.equals("GET")) {
 				// GET

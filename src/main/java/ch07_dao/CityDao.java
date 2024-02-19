@@ -32,7 +32,7 @@ public class CityDao {
 			// java:comp/env까지 initCtx의 lookup메서드-찾아서 넣음- 를 이용해서 "java:comp/env" 에 해당하는 객체(톰캣)를 찾아서 evnCtx에 삽입
 			// + 부터 envCtx의 lookup메서드를 이용해서 "jdbc/world"에 해당하는 객체(server.xml에 등록한 이름 world)를 찾아서 ds에 삽입
 			
-			DataSource ds = (DataSource) initContext.lookup("java:comp/env/" + "jdbc/world"); // "jdbc/world"는 context.xml에서 가져온 거
+			DataSource ds = (DataSource) initContext.lookup("java:comp/env/" + "jdbc/bbs"); // "jdbc/world"는 context.xml에서 가져온 거
 			
 			//getConnection메서드를 이용해서 커넥션 풀로 부터 커넥션 객체를 얻어내어 conn변수에 저장
 			conn = ds.getConnection();

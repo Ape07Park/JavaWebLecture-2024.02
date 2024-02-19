@@ -17,8 +17,8 @@
 		<input type="hidden" name="sid" value="${song.sid}"> <%-- DB에 전송 --%>
 		<input type="text" value="${song.sid}" disabled> <br><br> <%-- 화면에 보임 --%> 
 		
-		<input type="text" name="title" value="${song.title}"> <br><br>
-		<input type="text" name="lyrics" value="${song.lyrics}"> <br><br> 
+		<input type="text" name="title" value="${song.title}" placeholder="title"> <br><br>
+		<input type="text" name="lyrics" value="${song.lyrics}" placeholder="lyrics"> <br><br> 
 		
 		
 			

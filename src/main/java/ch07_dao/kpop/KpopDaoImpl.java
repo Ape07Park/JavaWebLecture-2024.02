@@ -46,16 +46,19 @@ public class KpopDaoImpl implements KpopDao {
 		Connection conn = getConnection();
 		List<Kpop> list = new ArrayList<Kpop>();
 		// l.sid 누락 
-		String sql = "SELECT r.gid,r.name, r.debut, l.title, l.lyrics FROM song l"
-				+ "	INNER JOIN girl_group r"
-				+ "	ON l.sid=r.hit_song_id";
+		String sql = "SELECT g.*, s.title, s.lyrics FROM girl_group g"
+				+ "  JOIN song s ON g.hit_song_id=s.sid"
+				+ "  ORDER BY debut desc";
+				
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
+			// 여기서 받는 거에 파라미터 1개 뺌 lyrics 받아야 할 걸 안받아서 lyrics자리에 번호 들어감
+			// list.jsp 고치다 뺸 걸로 예상됨
 			while (rs.next()) {
 				Kpop kpop = new Kpop(rs.getInt(1), rs.getString(2), LocalDate.parse(rs.getString(3)), 
-						rs.getString(4), rs.getString(5));
+						rs.getInt(4), rs.getString(5), rs.getString(6));
 				list.add(kpop);
 			}
 			
@@ -83,7 +86,6 @@ public class KpopDaoImpl implements KpopDao {
 				artist = new Artist(rs.getInt(1), rs.getString(2), 
 						LocalDate.parse(rs.getString(3)), rs.getInt(4));
 			}
-			
 			rs.close();
 			pstmt.close();
 			conn.close();
@@ -162,7 +164,6 @@ public class KpopDaoImpl implements KpopDao {
 	public void updateArtist(Artist artist) {
 		Connection conn = getConnection();
 		String sql = "update girl_group set name=?, debut=?, hit_song_id=? where gid=?";
-		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, artist.getName());
@@ -171,9 +172,7 @@ public class KpopDaoImpl implements KpopDao {
 			pstmt.setInt(4, artist.getAid());
 			
 			pstmt.executeUpdate();
-			
-			pstmt.close();
-			conn.close();
+			pstmt.close(); conn.close();		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
