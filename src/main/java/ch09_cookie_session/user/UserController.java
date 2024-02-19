@@ -26,12 +26,16 @@ public class UserController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String method = request.getMethod();
-		HttpSession session = request.getSession();
+		
+		HttpSession session = request.getSession(); // session 받기
 				
 		String requestUri = request.getRequestURI(); // 입력한 주소값을 받음
-		String[] uri = requestUri.split("/");
-		String action = uri[uri.length - 1];
+		
+		String[] uri = requestUri.split("/"); //  '/' 기준으로 나누기
+		
+		String action = uri[uri.length - 1]; // url 길이의 -1  /ch09/user/register의 -1 인 "register"를 본다
 		RequestDispatcher rd = null;
+		
 		String uid = null, pwd = null, pwd2 = null, uname = null, email = null;
 		String msg = "",  url = "";
 		User user = null;
@@ -43,7 +47,7 @@ public class UserController extends HttpServlet {
 			int page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_); // 입력값 받기
 			List<User> list = uSvc.getUserList(page);
 
-			// 내용물 안나오면 size 찍어보기
+			// * 내용물 안나오면 size 찍어보기
 			System.out.println(list.size());
 
 			// 모델에서 가져오기: "list"에 list 값 세팅
@@ -104,12 +108,19 @@ public class UserController extends HttpServlet {
 				rd.forward(request, response);
 			}else {
 				rd = request.getRequestDispatcher("/ch09/user/register.jsp");
-				request.setAttribute("uid", uid);
-				request.setAttribute("pwd", pwd);
-				request.setAttribute("pwd2", pwd2);
-				request.setAttribute("uname", uname);
-				request.setAttribute("email", email);
 				
+				uid = request.getParameter("uid");
+				pwd = request.getParameter("pwd");
+				pwd2 = request.getParameter("pwd2");
+				uname = request.getParameter("uname");
+				email = request.getParameter("email");
+				
+				
+				if(pwd.equals(pwd2)) {
+					user = new User(uid, pwd, uname, email);
+				}
+				uSvc.registerUser(user);
+				response.sendRedirect("/jw/ch09/user/list?page=1");
 			}
 			break;
 		}
