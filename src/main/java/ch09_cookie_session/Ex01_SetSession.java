@@ -20,6 +20,7 @@ public class Ex01_SetSession extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	 // ServletRequest를 상속 받은 HttpServletRequest
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 기억공간(메모리) 생성
 		HttpSession session = request.getSession();

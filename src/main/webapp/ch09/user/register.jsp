@@ -34,8 +34,8 @@
             <form action="/jw/ch09/user/register" method="post">
               <table class="table table-borderless">
                 <tr>
-                  <td style="width: 50%;"><label class="col-form-label">사용자 ID</label></td>
-                  <td style="width: 50%;"><input type="text" name="uid" class="form-control"></td>
+                  <td style="width: 45%;"><label class="col-form-label">사용자 ID</label></td>
+                  <td style="width: 55%;"><input type="text" name="uid" class="form-control"></td>
                 </tr>
                 <tr>
                   <td><label class="col-form-label">패스워드</label></td>
