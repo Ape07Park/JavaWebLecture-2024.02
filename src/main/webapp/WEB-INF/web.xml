@@ -278,4 +278,14 @@
     <servlet-name>Ex04_Pojo</servlet-name>
     <url-pattern>/Ex04_Pojo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Ex11_Core</display-name>
+    <servlet-name>Ex11_Core</servlet-name>
+    <servlet-class>ch14_el_jstl.Ex11_Core</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ex11_Core</servlet-name>
+    <url-pattern>/Ex11_Core</url-pattern>
+  </servlet-mapping>
 </web-app>
