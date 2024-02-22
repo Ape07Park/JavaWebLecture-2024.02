@@ -60,7 +60,8 @@
 							</tr>
 							</c:forEach>
 						</table>
-						<%-- pagination --%>
+						<%-- ** pagination --%>
+						<%-- 반복되는 거 찾아서 반복문 사용하기 --%>
 						<ul class="pagination justify-content-center mt-4">
 							<li class="page-item"><a class="page-link" href="#"><i class="fa-solid fa-less-than"></i></a></li>
 							<c:forEach var="page" items= "${pageList}">

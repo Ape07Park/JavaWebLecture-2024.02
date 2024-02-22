@@ -288,4 +288,14 @@
     <servlet-name>Ex11_Core</servlet-name>
     <url-pattern>/Ex11_Core</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardContorller</display-name>
+    <servlet-name>BoardContorller</servlet-name>
+    <servlet-class>project.controller.BoardContorller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardContorller</servlet-name>
+    <url-pattern>/BoardContorller</url-pattern>
+  </servlet-mapping>
 </web-app>
