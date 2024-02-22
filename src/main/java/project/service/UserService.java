@@ -14,6 +14,8 @@ public interface UserService {
 	
 	List<User> getUserList(int page);
 	
+	int getUserCount();
+	
 	void registerUser(User user);
 	
 	void updateUser(User user);
@@ -21,7 +23,4 @@ public interface UserService {
 	void deleteUser(String uid);
 	
 	int login(String uid, String pwd);
-	
-	
-	
 }

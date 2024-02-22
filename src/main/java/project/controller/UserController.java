@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.collections.CaseInsensitiveKeyMap;
 import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet({ "/bbs/user/list", "/bbs/user/register",
@@ -50,16 +51,27 @@ public class UserController extends HttpServlet {
 			// 입력값 받기 (page 값을 넣을 수 있도록 함 입력값 받기)
 			String page_ = request.getParameter("page");
 			int page = (page_ == null || page_.equals("")) ? 1 : Integer.parseInt(page_); // 입력값 받기
-			List<User> list = uSvc.getUserList(page);
-
+			session.setAttribute("currentUserPage", page);
+			List<User> userList = uSvc.getUserList(page);
+			
 			// * 내용물 안나오면 size 찍어보기
-			System.out.println(list.size());
-
+			System.out.println(userList.size());
+			
 			// 모델에서 가져오기: "list"에 list 값 세팅
-			request.setAttribute("list", list);
+			request.setAttribute("userList", userList);
+			
+			// for paginantion
+			int totalUsers = uSvc.getUserCount();
+			int totalpages = (int) Math.ceil(totalUsers * 1.0 / uSvc.COUNT_PER_PAGE); // 소수로 만들어서 나누고 나머지는 소수점으로 있기에 올림하여 페이지 +1하기
+			List<String> pageList = new ArrayList<String>();
+			for (int i = 1; i <= totalpages; i++) {
+				pageList.add(String.valueOf(i)); // i(정수) -> String	
+			}
+			// 내려 보내기
+			request.setAttribute("pageList", pageList); // pageList 이름(키)를 가지는 것에 pageList라는 value를 세팅(넣음)
 
 			// viewer로 보내기
-//			
+			
 			rd = request.getRequestDispatcher("/WEB-INF/view/user/list.jsp");
 
 			// ** 앞에 보여줄려면 꼭 필요
@@ -184,6 +196,7 @@ public class UserController extends HttpServlet {
 			response.sendRedirect("/jw/bbs/user/list?page=1");
 			break;
 		}
+		
 
 	}
 }
