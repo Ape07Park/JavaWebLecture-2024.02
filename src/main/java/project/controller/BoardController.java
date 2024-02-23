@@ -36,9 +36,10 @@ public class BoardController extends HttpServlet {
 
 		// 반복된 변수 세팅
 		RequestDispatcher rd = null;
-		String title = "", content = "", sessUid = "", field = "", query = "", page_ = "";
+		String title = "", content = "", field = "", query = "", page_ = "", uid="";
 		Board board = null;
 		int bid = 0, page = 0;
+		String sessUid = (String) session.getAttribute("sessUid");
 		
 		// 인코딩 작업
 		request.setCharacterEncoding("utf-8"); 
@@ -80,7 +81,6 @@ public class BoardController extends HttpServlet {
 
 		case "insert":
 			// * sendRedirect나 getRequestDispatcher나 둘중 하나만 가능
-			sessUid = (String) session.getAttribute("sessUid");
 			if (sessUid == null || sessUid.equals("")) {
 				// 로그인이 안되어 있으면 login으로 돌려보냄
 				response.sendRedirect("/jw/bbs/user/login");
@@ -104,9 +104,12 @@ public class BoardController extends HttpServlet {
 		case "detail":
 			// 뭐 보낼지 세팅 후 jsp에 보내기
 			bid = Integer.parseInt(request.getParameter("bid"));
-
-			System.out.println(bid);
-			bSvc.increaseViewCount(bid);
+			uid = request.getParameter("uid");
+			
+			// uid가 sessUid와 일치 x면 조회수 상승 x
+			if(! uid.equals(sessUid)) {
+				bSvc.increaseViewCount(bid);
+			}
 
 			board = bSvc.getBoard(bid);
 
@@ -140,13 +143,14 @@ public class BoardController extends HttpServlet {
 			} else {
 				// 파라미터 받아오기
 				bid = Integer.parseInt(request.getParameter("bid"));
+				uid = request.getParameter("uid");
 				title = request.getParameter("title");
 				content = request.getParameter("content");
 				
 				board = new Board(bid, title, content);
 				
 				bSvc.updateBoard(board);
-				response.sendRedirect("/jw/bbs/board/detail?bid=" + bid);
+				response.sendRedirect("/jw/bbs/board/detail?bid=" + bid + "&uid=" + uid);
 				
 			}
 			break;

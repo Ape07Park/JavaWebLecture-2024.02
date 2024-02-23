@@ -26,20 +26,19 @@
 			<!-- ===================== 본문 영역 ===================== -->
 			<div class="col-9">
 				<h3><strong class="me-5">게시글 보기</strong>
+					<span style="font-size:16px">
+						<a href="/jw/bbs/board/list?p=${currentBoardPage}&f=${field}&q=${query}"><i class="fa-solid fa-table-list"></i>목록</a>
 					<c:if test="${sessUid eq board.uid}">	<!-- 본인만 수정/삭제 가능 -->
-						<span style="font-size:16px">
-							<a href="/jw/bbs/board/update?bid=${board.bid}"><i class="fa-solid fa-file-pen"></i> 수정</a>
-							<a href="javascript:deleteFunc('${board.bid}')"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
-						</span>
+						<a href="/jw/bbs/board/update?bid=${board.bid}"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
+						<a href="javascript:deleteFunc('${board.bid}')"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 					</c:if>
 					
 					<%--에러: 게시글 쓴 유저가 맞는지 조건문 안따지고 아무데나 지우는 기능 추가했음  --%>
 					<c:if test="${sessUid ne board.uid}">	
-						<span style="font-size:16px">
-							<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen"></i> 수정</a>
-							<a href="#" class="disabled-link"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
-						</span>
+						<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
+						<a href="#" class="disabled-link"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 					</c:if>
+					</span>
 				</h3>
 				<hr>
 				<div class="row">

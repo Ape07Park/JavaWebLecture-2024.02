@@ -77,7 +77,7 @@
 					<c:forEach var="board" items="${boardList}">
 						<tr>
 							<td>${board.bid}</td>
-							<td><a href="/jw/bbs/board/detail?bid=${board.bid}">${board.title}</a>
+							<td><a href="/jw/bbs/board/detail?bid=${board.bid}&uid=${board.uid}">${board.title}</a>
 								<c:if test="${board.replyCount ge 1}">
 									<%-- 0 보다 크면 표시 --%>
 									<span class="text-danger">[${board.replyCount}]</span>

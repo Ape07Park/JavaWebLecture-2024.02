@@ -38,6 +38,7 @@
 				<div class="col-10">
 					<form action="/jw/bbs/board/update" method="post">
 						<input type="hidden" name="bid" value="${board.bid}">
+						<input type="hidden" name="uid" value="${board.uid}">
 						<table class="table table-borderless">
 							<tr>
 								<td style="width: 10%;"><label class="col-form-label">제목
