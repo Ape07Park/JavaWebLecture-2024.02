@@ -124,7 +124,7 @@ public class UserController extends HttpServlet {
 		case "logout":
 			// * session 지우면 로그아웃 됨
 			session.invalidate(); // 세션 지우기
-			response.sendRedirect("/jw/bbs/user/list?page=1");
+			response.sendRedirect("/jw/bbs/user/login");
 			break;
 
 		case "register":

@@ -13,8 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import project.entity.Board;
 
+import project.entity.Board;
 
 public class BoardDao {
 	public Connection getConnection() {
@@ -29,7 +29,7 @@ public class BoardDao {
 			// world)를 찾아서 ds에 삽입
 
 			DataSource ds = (DataSource) initContext.lookup("java:comp/env/" + "jdbc/bbs"); // "jdbc/world"는
-																								// context.xml에서 가져온 거
+																							// context.xml에서 가져온 거
 
 			// getConnection메서드를 이용해서 커넥션 풀로 부터 커넥션 객체를 얻어내어 conn변수에 저장
 			conn = ds.getConnection();
@@ -46,7 +46,7 @@ public class BoardDao {
 		}
 		return conn;
 	}
-	
+
 	public Board getBoard(int bid) {
 		Connection conn = getConnection();
 		Board board = null;
@@ -81,7 +81,7 @@ public class BoardDao {
 		Connection conn = getConnection();
 		String sql = "SELECT b.*, u.uname FROM board b" + " JOIN users u ON b.uid=u.uid" + " WHERE b.isDeleted=0 AND "
 				+ field + " LIKE ?" + " ORDER BY bid desc " + " LIMIT ? OFFSET ?";
-		
+
 		List<Board> list = new ArrayList<Board>();
 
 		try {
@@ -96,9 +96,9 @@ public class BoardDao {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				Board board = new Board(rs.getInt(1), rs.getString(2), 
-						LocalDateTime.parse(rs.getString(5).replace(" ", "T")),  
-						rs.getInt(7), rs.getInt(8), rs.getString(9));
+				Board board = new Board(rs.getInt(1), rs.getString(2),
+						LocalDateTime.parse(rs.getString(5).replace(" ", "T")), rs.getInt(7), rs.getInt(8),
+						rs.getString(9));
 				list.add(board);
 			}
 			rs.close();
@@ -132,12 +132,42 @@ public class BoardDao {
 
 	public void updateBoard(Board board) {
 		Connection conn = getConnection();
+		// user ID를 건드리는 것이 아니기에 uid 필요 x 
+		String sql = "update board set title=?, content=?, modTime=now() where bid=?";
 		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			// modeTime은 DB에서 자동으로 처리
+			pstmt.setInt(3, board.getBid());
+
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteBoard(int bid) {
 		Connection conn = getConnection();
-		
+		String sql = "update board set isDeleted=1 where bid=?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// field 값은 view 또는 reply(view 또는 reply값 증가 시키기 1씩)
@@ -150,7 +180,7 @@ public class BoardDao {
 
 			pstmt.setInt(1, bid);
 			pstmt.executeUpdate();
-			
+
 			pstmt.close();
 			conn.close();
 
@@ -159,25 +189,32 @@ public class BoardDao {
 		}
 
 	}
-	
-	public int getBoardCount() {
+
+	public int getBoardCount(String field, String query) {
 		Connection conn = getConnection();
-		String sql = "select count(bid) from board where isDeleted=0";
+		// uname으로 할 시 검색이 안돼서 수정함: 파라미터 field, query 추가 및 sql 수정 
+		query = "%" + query + "%";
+		String sql = "SELECT COUNT(bid) FROM board"
+				+ "	JOIN users ON board.uid=users.uid"
+				+ "	WHERE board.isDeleted=0 and " +  field + " like ?";
 		int count = 0;
+		
 		try {
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, query);
+			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				count = rs.getInt(1);
 			}
 			rs.close();
-			stmt.close();
+			pstmt.close();
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return count;
 	}
-	
+
 }

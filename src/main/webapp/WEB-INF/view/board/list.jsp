@@ -12,9 +12,7 @@
 		text-align: center;
 	}
 	
-	.disabled-link {
-		pointer-events: none;
-	}
+	
 	</style>
 	
 	<script>
@@ -102,7 +100,7 @@
 						<li class="page-item ${currentBoardPage eq page ? 'active' : ''}">
 							<a class="page-link"
 							<%--이상 무 --%>
-							href="/jw/bbs/board/list?p=${page}&f=${field}&q=${query}">${page}>${page}</a>
+							href="/jw/bbs/board/list?p=${page}&f=${field}&q=${query}"${page}>${page}</a>
 						</li>
 					</c:forEach>
 					<li class="page-item"><a class="page-link" href="#"><i
