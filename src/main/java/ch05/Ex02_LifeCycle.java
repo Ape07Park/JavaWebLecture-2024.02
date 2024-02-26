@@ -15,7 +15,7 @@ public class Ex02_LifeCycle extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("init() method");
 	}
-
+	// 톰캣 종료 시 
 	public void destroy() {
 		System.out.println("destroy() method");
 	}
@@ -27,7 +27,9 @@ public class Ex02_LifeCycle extends HttpServlet {
 	// 주소창에서 칠 때는 get, form으로 보낼 시에만 post
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet() method");
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		System.out.println("doGet() method stop");
 	}
 
