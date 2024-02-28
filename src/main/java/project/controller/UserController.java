@@ -21,8 +21,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet({ "/bbs/user/list", "/bbs/user/register", "/bbs/user/update", "/bbs/user/delete", "/bbs/user/login",
 		"/bbs/user/logout" })
-// Servlet을 바꿨으니 url(외부 접속 o)도 바꿈 
-// jsp는 내 거니 내 폴더에 맞게 바꾸기
+//Servlet을 바꿨으니 url(외부 접속 o)도 바꿈 
+//jsp는 내 거니 내 폴더에 맞게 바꾸기
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService uSvc = new UserServiceImpl();
