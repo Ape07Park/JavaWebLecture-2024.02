@@ -15,16 +15,15 @@ public class Ex04_RegisterMember extends HttpServlet {
        
 	// form 을 제공해주는 역할
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-			// 입력한 jsp와 연결 및 요청을 jsp로 보냄
-			RequestDispatcher rd = request.getRequestDispatcher("/ch06/registerFormBootstrap.jsp");
-			// jsp가 작성한 내용 브라우저로 전달
+			// registerFormBootstrap.jsp와 연결 및 요청을 jsp로 보냄
+			RequestDispatcher rd = request.getRequestDispatcher("/ch06/registerForm.jsp");
+			// jsp가 작성한 내용 브라우저로 전달해서 화면에 띄우기
 			rd.forward(request, response);
 		}
 
 		// 입력 폼을 처리해주는 역할
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			// 전달되는 데이터의 key를 통해 value 추출
+			// jsp에서 전달되는 데이터의 key를 통해 value 추출
 			String uid = request.getParameter("uid");
 			String pwd = request.getParameter("pwd");
 			String pwd2 = request.getParameter("pwd2");
@@ -38,11 +37,10 @@ public class Ex04_RegisterMember extends HttpServlet {
 			
 			User user = new User(uid, pwd, name, email, LocalDate.now(), 0);
 			
-			// jsp에 전달할 데이터의 key, value 세팅
+			// Result.jsp에 전달할 데이터의 key, value 세팅
 			request.setAttribute("user", user);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/ch06/registerResult.jsp");
 			rd.forward(request, response);
 		}
-
 }

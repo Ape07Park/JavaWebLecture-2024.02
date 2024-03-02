@@ -12,6 +12,9 @@
 <body style="margin: 50px;">
 	<h1>회원 가입 결과</h1>
 	<hr>
+	<%-- Ex04_RegisterMember의 .getRequestDispatcher("/ch06/registerResult.jsp")를 통해 연결 및 user 데이터가 넘어온 상태
+	따라서 EL을 통해 value 값 출력 가능
+	--%>
 	<table border="1">
 		<tr><td>아이디</td><td>${user.uid}</td></tr>
 		<tr><td>패스워드</td><td>${user.pwd}</td></tr>
