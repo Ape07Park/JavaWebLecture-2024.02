@@ -136,7 +136,8 @@ public class KpopController extends HttpServlet {
 				response.sendRedirect("/jw/ch07/kpop/list");
 			}
 			break;
-
+			
+			
 		case "deleteSong":
 				int sid = Integer.parseInt(request.getParameter("sid"));
 				kDao.deleteSong(sid);
